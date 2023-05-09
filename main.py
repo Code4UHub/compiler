@@ -28,7 +28,7 @@ async def run_code(run_code: RunCode):
 
     # Compile the code
     print('COMPILE CODE')
-    completed_process = subprocess.run(["docker", "run", "--rm", "-i", "python:3.8-slim", "python3", "-c", run_code.source_code], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    completed_process = subprocess.run(["docker", "run", "--rm", "--user", "nobody", "--cpus", "0.5", "--memory", "512m", "--read-only", "--network", "none", "-i", "python:3.8-slim", "python3", "-c", run_code.source_code], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     print('CHECK IF COMPILED')
     # Check if the compilation was successful
@@ -38,7 +38,7 @@ async def run_code(run_code: RunCode):
     # Run shown tests
     print('TEST CODE')
     for test in run_code.tests:
-        completed_process = subprocess.run(["docker", "run", "--rm", "-i", "python:3.8-slim", "python3", "-c", run_code.source_code, test.input], input=completed_process.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        completed_process = subprocess.run(["docker", "run", "--rm", "--user","nobody", "--cpus", "0.5", "--memory", "512m", "--read-only", "--network", "none", "-i", "python:3.8-slim", "python3", "-c", run_code.source_code, test.input], input=completed_process.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         result.append({"status": "success", "input": test.input, "result": completed_process.stdout.decode().strip()})
 
