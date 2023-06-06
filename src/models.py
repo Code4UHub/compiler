@@ -10,10 +10,8 @@ class Code(BaseModel):
     shown_tests: List[Test]
     hidden_tests: Optional[List[Test]]
 
-class RunTest(BaseModel):
-    # input: str | List[str | int]
-    input: Any
-
-class RunCode(BaseModel):
+class SubmitCode(BaseModel):
+    question_id: int
     source_code: str
-    tests: List[RunTest]
+    shown_tests: List[Test]
+    hidden_tests: Optional[List[Test]]
