@@ -63,17 +63,22 @@ async def compile_and_run(code: Code):
                 print('---ERROR IN CODE---')
                 print(code_error)
                 grade = math.ceil((passed / total) * 100)
-                return JSONResponse(
-                    status_code=400,
-                    content={
-                            "status": "error",
-                            "total": total,
-                            "passed": passed,
-                            "grade": grade,
-                            "message": code_error,
-                            "test": result
-                    }
-                )
+                result.append({"status": "error",
+                               "input": code_input,
+                               "expected": expected_output,
+                               "output": code_error
+                               })
+                # return JSONResponse(
+                #     status_code=400,
+                #     content={
+                #             "status": "error",
+                #             "total": total,
+                #             "passed": passed,
+                #             "grade": grade,
+                #             "message": code_error,
+                #             "test": result
+                #     }
+                # )
 
             else:
                 print('OUTPUT DOESNT MATCH')
@@ -153,6 +158,7 @@ async def submit_code(code: Code):
         # Run shown tests
         for test in code.shown_tests:
             # Run each test with its input
+            code_input = format_output(test.input)
             expected_output = format_output(test.output)
             (code_output, code_error) = run_code(source_code, test.input)
 
@@ -161,52 +167,20 @@ async def submit_code(code: Code):
             if code_output == expected_output:
                 passed += 1
             elif code_error:
+                print('---ERROR IN CODE---')
+                print(code_error)
                 grade = math.ceil((passed / total) * 100)
                 return JSONResponse(
                     status_code=400,
                     content={
                             "status": "error",
-                            "total": total,
-                            "passed": passed,
+                            # "total": total,
+                            # "passed": passed,
                             "grade": grade,
                             "message": code_error,
                     }
                 )
 
-        # Run hidden tests
-        # if code.hidden_tests:
-        #     for test in code.hidden_tests:
-        #         type_input = type(test.input)
-        #         if type_input == list:
-        #             print('LIST')
-        #             sh_params = "{ " + "; ".join(f"echo {num}" for num in test.input) + "; }"
-        #
-        #         else:
-        #             print('INT OR STR')
-        #             sh_params = f'{{ echo {test.input} }}'
-        #         print(sh_params)
-        #
-        #         exec_params = docker_params + sh_params + '|' + python_params
-        #         # completed_process = subprocess.run(docker_exec_params, input=completed_process.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        #         completed_process = subprocess.run(exec_params, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        #
-        #         # Compare obtained result against expected output
-        #         if completed_process.stdout.decode().strip() == test.output.strip():
-        #             passed += 1
-        #         else:
-        #             return JSONResponse(
-        #                 status_code=402,
-        #                 content={
-        #                     "status": "failed",
-        #                     "total": total,
-        #                     "passed": passed,
-        #                     "test": {
-        #                         "input": test.input,
-        #                         "output": test.output,
-        #                         "result": completed_process.stdout.decode().strip()
-        #                     }
-        #                 }
-        #             )
 
         # Passed all test cases
         grade = math.ceil((passed / total) * 100)
@@ -214,8 +188,8 @@ async def submit_code(code: Code):
             status_code=200,
             content={
                 "status": "success",
-                "total": total,
-                "passed": passed,
+                # "total": total,
+                # "passed": passed,
                 "grade": grade,
             }
         )

@@ -1,7 +1,7 @@
 import subprocess
 
 def format_code(code: str):
-    code = code.replace("\'", "\\\"" )
+    code = code.replace("\'", "\"" )
     code = code.replace("\"", "\\\"" )
     return code
 
@@ -10,6 +10,8 @@ def format_input(input):
     sh_params = "sh -c "
     type_input = type(input)
     if type_input == list:
+        print('--------------')
+        print(type_input)
         input_values = "\"{ " + "; ".join(f"echo {num}" for num in input) + "; }"
         sh_params = "sh -c " + input_values
     else:
