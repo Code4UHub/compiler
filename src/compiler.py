@@ -42,6 +42,7 @@ def run_code(code: str, input) -> tuple:
     '''
     try:
         sh_params = format_input(input)
+        # docker_params = "docker run --rm -i --memory=\"0.5\" --cpus=\"0.5\" python:3.8-slim "
         docker_params = "docker run --rm -i python:3.8-slim "
         python_params = f'python3 -c \'{code}\' '
         exec_params = docker_params + sh_params + ' | ' + python_params + '"'
