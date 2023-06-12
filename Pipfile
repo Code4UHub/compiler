@@ -6,7 +6,7 @@ name = "pypi"
 [scripts]
 build = "pipenv run uvicorn src.main:app --reload --port 65535"
 dev = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:65535"
-start = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:65535 --name compiler --timeout 600 --capture-output --error-logfile /home/diaz/Documents/Tec/Semestres/Semestre-6/Code4U/compiler/compiler.logs --daemon"
+start = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:65535 --name compiler --timeout 600 --capture-output --error-logfile ./compiler.logs --daemon"
 stop = "pkill -f 'gunicorn'"
 check = "lsof -i :65535"
 
