@@ -27,6 +27,7 @@ app.add_middleware(
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
 # async def validation_exception_handler():
+    print('Body wasnt valid')
     return JSONResponse(
         status_code=422,
         content={"data": "Invalid request data"}
@@ -34,6 +35,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 @app.get('/hello')
 async def hello_world():
+    print('App is up')
     return 'Hello world'
 
 @app.post("/run")
@@ -84,6 +86,7 @@ async def compile_and_run(code: Code):
 
         # Passed all test cases
         grade = math.ceil((passed / total) * 100)
+        print('Passed all test cases')
         return JSONResponse(
             status_code=200,
             content={
@@ -95,8 +98,9 @@ async def compile_and_run(code: Code):
             }
         )
     except Exception as e:
-        print('EXCEPTION HAS TRIGGERED')
-        print(e)
+        # print('EXCEPTION HAS TRIGGERED')
+        # print(e)
+        print('An error ocurred, idk!')
         return JSONResponse(
             status_code=500,
             content={
@@ -150,8 +154,7 @@ async def submit_code(code: Code):
 
         # Passed all test cases
         grade = math.ceil((passed / total) * 100)
-        print('I AM HERE')
-        print(result)
+        print('Passed all test cases')
         return JSONResponse(
             status_code=200,
             content={
@@ -163,8 +166,9 @@ async def submit_code(code: Code):
             }
         )
     except Exception as e:
-        print('EXCEPTION HAS TRIGGERED')
-        print(e)
+        # print('EXCEPTION HAS TRIGGERED')
+        # print(e)
+        print('An error ocurred, idk!')
         return JSONResponse(
             status_code=500,
             content={
