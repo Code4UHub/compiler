@@ -32,6 +32,9 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content={"data": "Invalid request data"}
     )
 
+@app.get('/hello')
+async def hello_world():
+    return 'Hello world'
 
 @app.post("/run")
 async def compile_and_run(code: Code):

@@ -10,16 +10,10 @@ start = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.wor
 stop = "pkill -f 'gunicorn'"
 check = "lsof -i :65535"
 
-
-
-
-
-
-
-
 [packages]
 fastapi = "*"
 gunicorn = "*"
+uvicorn = "*"
 
 [dev-packages]
 
