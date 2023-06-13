@@ -7,11 +7,11 @@ class Test(BaseModel):
 
 class Code(BaseModel):
     source_code: str
-    shown_tests: List[Test]
+    tests: List[Test]
     hidden_tests: Optional[List[Test]]
 
 class SubmitCode(BaseModel):
     question_id: int
     source_code: str
-    shown_tests: List[Test]
+    tests: List[Test]
     hidden_tests: Optional[List[Test]]

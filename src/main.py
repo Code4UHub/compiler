@@ -45,11 +45,11 @@ async def compile_and_run(code: Code):
         source_code = format_code(code.source_code)
 
         result = []
-        total: int = len(code.shown_tests) + len(code.hidden_tests or [])
+        total: int = len(code.tests) + len(code.hidden_tests or [])
         passed = 0
 
-        # Run shown tests
-        for test in code.shown_tests:
+        # Run tests
+        for test in code.tests:
             # Run each test with its input
             code_input = format_output(test.input)
             expected_output = format_output(test.output)
@@ -115,11 +115,11 @@ async def submit_code(code: Code):
         source_code = format_code(code.source_code)
         result = []
 
-        total: int = len(code.shown_tests) + len(code.hidden_tests or [])
+        total: int = len(code.tests) + len(code.hidden_tests or [])
         passed = 0
 
-        # Run shown tests
-        for test in code.shown_tests:
+        # Run tests
+        for test in code.tests:
             # Run each test with its input
             code_input = format_output(test.input)
             expected_output = format_output(test.output)
