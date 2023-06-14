@@ -154,11 +154,14 @@ async def submit_code(code: Code):
 
         # Passed all test cases
         grade = math.ceil((passed / total) * 100)
+        status = 'sucess'
+        if passed != total:
+            status = 'failed'
         print('Passed all test cases')
         return JSONResponse(
             status_code=200,
             content={
-                "status": "success",
+                "status": status,
                 "total": total,
                 "passed": passed,
                 "score": grade,
