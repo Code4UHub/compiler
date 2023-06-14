@@ -16,5 +16,5 @@ RUN pipenv install --system --deploy --ignore-pipfile
 COPY . .
 
 # Set the entry point command
-# CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "65535"]
-CMD ["gunicorn", "src.main:app", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:65535"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "65535"]
+# CMD ["gunicorn", "src.main:app", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:65535"]
