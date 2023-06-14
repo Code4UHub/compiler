@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
-build = "pipenv run uvicorn src.main:app --reload --port 65535"
-dev = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:65535"
-start = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:65535 --name compiler --timeout 600 --capture-output --error-logfile ./compiler.logs --daemon"
+build = "pipenv run uvicorn src.main:app --reload --port 9199"
+dev = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:9199"
+start = "pipenv run gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:9199 --name compiler --timeout 600 --capture-output --error-logfile ./compiler.logs --daemon"
 stop = "pkill -f 'gunicorn'"
-check = "lsof -i :65535"
+check = "lsof -i :9199"
 
 [packages]
 fastapi = "*"
@@ -18,4 +18,4 @@ uvicorn = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.11"
